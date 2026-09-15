@@ -1,0 +1,17 @@
+{
+  "name": "ባሕረ ሐሳብ — Bahire Hasab",
+  "short_name": "ባሕረ ሐሳብ",
+  "description": "የኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተ ክርስቲያን ባሕረ ሐሳብ ማስያ — ተንቀሳቃሽ አጽዋማትና በዓላትን ለማንኛውም ዓመተ ምሕረት ያሰላል",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#14110D",
+  "theme_color": "#14110D",
+  "lang": "am",
+  "dir": "ltr",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

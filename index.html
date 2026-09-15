@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ባሕረ ሐሳብ — Bahire Hasab</title>
+<meta name="description" content="የኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተ ክርስቲያን ባሕረ ሐሳብ ማስያ">
+<meta name="theme-color" content="#14110D">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Ethiopic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14110D;
+    --surface:#1D1811;
+    --surface-2:#251F16;
+    --rule: rgba(201,147,43,0.18);
+    --gold:#C9932B;
+    --gold-soft:#8A6A2A;
+    --rubric:#8C3B33;
+    --parchment:#EDE6D6;
+    --muted:#9C9284;
+    --radius: 3px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(ellipse at top, rgba(201,147,43,0.06), transparent 55%),
+      var(--ink);
+    color:var(--parchment);
+    font-family:'Noto Sans Ethiopic','Fraunces',serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    padding-bottom:64px;
+  }
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px;}
+
+  header.top{
+    padding:40px 20px 28px;
+    text-align:center;
+    border-bottom:1px solid var(--rule);
+    position:relative;
+  }
+  header.top .glyph{
+    width:34px;height:34px;margin:0 auto 18px;
+    border:1.5px solid var(--gold);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+  }
+  header.top .glyph svg{width:16px;height:16px;fill:var(--gold);}
+  header.top h1{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:2rem;
+    letter-spacing:0.01em;
+    margin:0 0 6px;
+    color:var(--parchment);
+  }
+  header.top p.sub{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.72rem;
+    letter-spacing:0.14em;
+    color:var(--muted);
+    margin:0;
+    text-transform:uppercase;
+  }
+
+  section.input-block{
+    padding:32px 0 8px;
+  }
+  .year-row{
+    display:flex;
+    align-items:stretch;
+    gap:10px;
+  }
+  .year-field{
+    flex:1;
+    background:var(--surface);
+    border:1px solid var(--rule);
+    border-radius:var(--radius);
+    padding:14px 16px;
+  }
+  .year-field label{
+    display:block;
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.66rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:6px;
+  }
+  .year-field input{
+    width:100%;
+    background:transparent;
+    border:none;
+    outline:none;
+    color:var(--parchment);
+    font-family:'Fraunces',serif;
+    font-size:1.5rem;
+    font-weight:500;
+  }
+  .stepper{display:flex;flex-direction:column;gap:0;}
+  .stepper button{
+    flex:1;width:44px;
+    background:var(--surface);
+    border:1px solid var(--rule);
+    color:var(--gold);
+    font-size:1rem;
+    cursor:pointer;
+  }
+  .stepper button:first-child{border-bottom:none;border-radius:var(--radius) var(--radius) 0 0;}
+  .stepper button:last-child{border-radius:0 0 var(--radius) var(--radius);}
+  .stepper button:active{background:var(--surface-2);}
+
+  .evangelist-line{
+    margin-top:16px;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.72rem;
+    color:var(--muted);
+    letter-spacing:0.02em;
+  }
+  .evangelist-line strong{
+    color:var(--gold);
+    font-family:'Noto Sans Ethiopic',sans-serif;
+    font-weight:600;
+    font-size:0.9rem;
+  }
+
+  /* Results — feast ledger */
+  .ledger{
+    margin-top:36px;
+  }
+  .ledger h2{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:1.05rem;
+    color:var(--parchment);
+    margin:0 0 2px;
+  }
+  .ledger .cycle-note{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.68rem;
+    color:var(--muted);
+    margin-bottom:18px;
+    letter-spacing:0.02em;
+  }
+
+  .feast-row{
+    display:grid;
+    grid-template-columns: 30px 1fr auto;
+    align-items:baseline;
+    gap:14px;
+    padding:13px 0;
+    border-bottom:1px solid var(--rule);
+  }
+  .feast-row:last-child{border-bottom:none;}
+  .feast-row .tag{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.62rem;
+    color:var(--gold-soft);
+    border:1px solid var(--gold-soft);
+    border-radius:2px;
+    text-align:center;
+    padding:2px 0;
+    line-height:1.4;
+  }
+  .feast-row .tag.feast{color:var(--gold);border-color:var(--gold);}
+  .feast-row .tag.fast{color:var(--rubric);border-color:var(--rubric);}
+  .feast-row .name{
+    font-size:1rem;
+    color:var(--parchment);
+  }
+  .feast-row .name .wk{
+    display:block;
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.66rem;
+    color:var(--muted);
+    margin-top:2px;
+    letter-spacing:0.04em;
+  }
+  .feast-row .date{
+    font-family:'Fraunces',serif;
+    font-size:1.05rem;
+    color:var(--gold);
+    white-space:nowrap;
+    text-align:right;
+  }
+  .feast-row .date .m{
+    font-size:0.8rem;
+    color:var(--muted);
+    font-family:'Noto Sans Ethiopic',sans-serif;
+    margin-inline-start:5px;
+  }
+
+  .section-label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.64rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:30px 0 4px;
+  }
+
+  /* Working / calculation trail */
+  .trail-toggle{
+    margin-top:38px;
+    width:100%;
+    background:none;
+    border:1px solid var(--rule);
+    border-radius:var(--radius);
+    color:var(--muted);
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.68rem;
+    letter-spacing:0.08em;
+    padding:12px;
+    cursor:pointer;
+    text-transform:uppercase;
+  }
+  .trail-toggle:active{background:var(--surface);}
+
+  .trail{
+    display:none;
+    margin-top:2px;
+    background:var(--surface);
+    border:1px solid var(--rule);
+    border-top:none;
+    padding:18px 16px 6px;
+  }
+  .trail.open{display:block;}
+  .trail-row{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    padding:9px 0;
+    border-bottom:1px dashed var(--rule);
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.78rem;
+  }
+  .trail-row:last-child{border-bottom:none;}
+  .trail-row .k{color:var(--muted);}
+  .trail-row .v{color:var(--parchment);text-align:right;}
+  .trail-row .v .expr{color:var(--gold-soft);font-size:0.72rem;display:block;margin-top:2px;}
+
+  footer{
+    margin-top:44px;
+    text-align:center;
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.62rem;
+    color:var(--muted);
+    letter-spacing:0.05em;
+    line-height:1.8;
+  }
+  footer a{color:var(--gold-soft);}
+
+  .install-banner{
+    display:none;
+    position:fixed;
+    left:16px;right:16px;bottom:16px;
+    background:var(--surface-2);
+    border:1px solid var(--gold-soft);
+    border-radius:var(--radius);
+    padding:12px 14px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.7rem;
+    color:var(--parchment);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    max-width:688px;
+    margin:0 auto;
+    z-index:20;
+  }
+  .install-banner.show{display:flex;}
+  .install-banner button{
+    background:var(--gold);
+    color:var(--ink);
+    border:none;
+    border-radius:2px;
+    padding:8px 12px;
+    font-family:'JetBrains Mono',monospace;
+    font-weight:600;
+    font-size:0.68rem;
+    letter-spacing:0.05em;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="glyph">
+    <svg viewBox="0 0 24 24"><rect x="10.5" y="3" width="3" height="18"/><rect x="3" y="10.5" width="18" height="3"/></svg>
+  </div>
+  <h1>ባሕረ ሐሳብ</h1>
+  <p class="sub">Ethiopian Orthodox Computus</p>
+</header>
+
+<div class="wrap">
+
+  <section class="input-block">
+    <div class="year-row">
+      <div class="year-field">
+        <label>ዓመተ ምሕረት · EC Year</label>
+        <input id="yearInput" type="number" inputmode="numeric" value="2019">
+      </div>
+      <div class="stepper">
+        <button id="yUp" aria-label="increase year">+</button>
+        <button id="yDown" aria-label="decrease year">–</button>
+      </div>
+    </div>
+    <div class="evangelist-line">
+      <span id="wdLine">መባቻ ...</span>
+      <strong id="evLine">ወንጌላዊ ...</strong>
+    </div>
+  </section>
+
+  <section class="ledger">
+    <h2>ተውራሽ በዓላትና አጽዋማት</h2>
+    <div class="cycle-note" id="cycleNote"></div>
+    <div id="feastList"></div>
+  </section>
+
+  <div class="section-label">ቋሚ በዓላት · fixed feasts</div>
+  <div id="fixedList"></div>
+
+  <button class="trail-toggle" id="trailToggle">ስሌቱን አሳይ · show the working</button>
+  <div class="trail" id="trail"></div>
+
+  <footer>
+    ስሌቱ የተመሠረተው በተውሳክ ዘዴ (አቡሻኽር) ነው። ውጤቱን ከአጥቢያ ቤተ ክርስቲያንዎ ካህን ጋር ያረጋግጡ።<br>
+    Calculated from the traditional tewsak method. Confirm movable dates with your parish clergy.
+  </footer>
+</div>
+
+<div class="install-banner" id="installBanner">
+  <span>በስልክዎ ላይ ይጫኑት · Install this app</span>
+  <button id="installBtn">ጫን · Install</button>
+</div>
+
+<script>
+// ---------- Bahire Hasab calculation ----------
+const MONTHS = ['','መስከረም','ጥቅምት','ኅዳር','ታኅሣሥ','ጥር','የካቲት','መጋቢት','ሚያዝያ','ግንቦት','ሰኔ','ሐምሌ','ነሐሴ','ጳጉሜን'];
+const WEEKDAYS = ['ሰኞ','ማክሰኞ','ረቡዕ','ሐሙስ','ዓርብ','ቅዳሜ','እሑድ']; // index 0..6, matches metbacha remainder
+const TEWSAK = {'ቅዳሜ':8,'እሑድ':7,'ሰኞ':6,'ማክሰኞ':5,'ረቡዕ':4,'ሐሙስ':3,'ዓርብ':2};
+const EVANGELISTS = {1:'ማቴዎስ',2:'ማርቆስ',3:'ሉቃስ',0:'ዮሐንስ'};
+
+const MOVABLE = [
+  {key:'nineveh',    nameAm:'ጾመ ነነዌ',        type:'fast',  offset:0,   weekday:'ሰኞ'},
+  {key:'abiy',       nameAm:'ዐቢይ ጾም (ሁዳዴ)',  type:'fast',  offset:14,  weekday:'ሰኞ'},
+  {key:'debrezeyit', nameAm:'ደብረ ዘይት',       type:'feast', offset:41,  weekday:'እሑድ'},
+  {key:'hosaena',    nameAm:'ሆሣዕና',          type:'feast', offset:62,  weekday:'እሑድ'},
+  {key:'siklet',     nameAm:'ስቅለት',          type:'feast', offset:67,  weekday:'ዓርብ'},
+  {key:'tinsae',     nameAm:'ትንሣኤ',          type:'feast', offset:69,  weekday:'እሑድ'},
+  {key:'erkbekahnat',nameAm:'ርክበ ካህናት',      type:'feast', offset:93,  weekday:'ረቡዕ'},
+  {key:'erget',      nameAm:'ዕርገት',          type:'feast', offset:108, weekday:'ሐሙስ'},
+  {key:'paraclete',  nameAm:'በዓለ ጰራቅሊጦስ',    type:'feast', offset:118, weekday:'እሑድ'},
+  {key:'hawariyat',  nameAm:'ጾመ ሐዋርያት ይገባል', type:'fast',  offset:119, weekday:'ሰኞ'},
+  {key:'dehnet',     nameAm:'ጾመ ድኅነት ይገባል',  type:'fast',  offset:121, weekday:'ረቡዕ'},
+];
+
+const FIXED = [
+  {nameAm:'እንቁጣጣሽ (ዘመን መለወጫ)', month:1, day:1},
+  {nameAm:'መስቀል',              month:1, day:17},
+  {nameAm:'ልደት',                month:4, day:29},
+  {nameAm:'ጥምቀት',              month:5, day:11},
+];
+
+function calc(ecYear){
+  const ameteAlem = ecYear + 5500;
+  const q4 = Math.floor(ameteAlem / 4);
+  const evRem = ameteAlem % 4;
+  const evangelist = EVANGELISTS[evRem];
+
+  const metbachaSum = ameteAlem + q4;
+  const wIdx = metbachaSum % 7;          // New Year (Meskerem 1) weekday index
+  const newYearWeekday = WEEKDAYS[wIdx];
+
+  let medeb = ameteAlem % 19;
+  if (medeb === 0) medeb = 19;
+  const wenber = medeb - 1;
+
+  let abektie = (wenber * 11) % 30;
+  let metqi = (wenber * 19) % 30;
+  if (metqi === 0) metqi = 30;
+  if (abektie === 0) abektie = 30;
+
+  const meskeremBranch = metqi > 14;
+  const metqiDayOfYear = meskeremBranch ? metqi : metqi + 30;
+  const metqiWeekdayIdx = (wIdx + (metqiDayOfYear - 1)) % 7;
+  const metqiWeekday = WEEKDAYS[metqiWeekdayIdx];
+  const tewsak = TEWSAK[metqiWeekday];
+
+  const ninevehRaw = metqi + tewsak;
+  let ninevehMonthIndex, ninevehDay;
+  if (meskeremBranch){
+    if (ninevehRaw <= 30){ ninevehMonthIndex = 5; ninevehDay = ninevehRaw; }      // ጥር
+    else { ninevehMonthIndex = 6; ninevehDay = ninevehRaw - 30; }                  // የካቲት
+  } else {
+    ninevehMonthIndex = 6; ninevehDay = ninevehRaw;                                // የካቲት
+  }
+
+  const movable = MOVABLE.map(e => {
+    const absDay = ninevehDay + e.offset;
+    const monthOffset = Math.floor((absDay - 1) / 30);
+    const day = ((absDay - 1) % 30) + 1;
+    const monthIndex = ninevehMonthIndex + monthOffset;
+    return { ...e, month: MONTHS[monthIndex], day, monthIndex };
+  });
+
+  const fixed = FIXED.map(f => {
+    const dayOfYear = (f.month - 1) * 30 + f.day;
+    const wkIdx = (wIdx + (dayOfYear - 1)) % 7;
+    return { ...f, monthName: MONTHS[f.month], weekday: WEEKDAYS[wkIdx] };
+  });
+
+  return { ecYear, ameteAlem, q4, evRem, evangelist, wIdx, newYearWeekday,
+           medeb, wenber, abektie, metqi, meskeremBranch, metqiDayOfYear,
+           metqiWeekday, tewsak, ninevehRaw, ninevehMonthIndex, ninevehDay,
+           movable, fixed };
+}
+
+// ---------- Rendering ----------
+const yearInput = document.getElementById('yearInput');
+const feastList = document.getElementById('feastList');
+const fixedList = document.getElementById('fixedList');
+const wdLine = document.getElementById('wdLine');
+const evLine = document.getElementById('evLine');
+const cycleNote = document.getElementById('cycleNote');
+const trail = document.getElementById('trail');
+
+function toGeez(n){
+  // simple Arabic numerals kept for reliability across all magnitudes
+  return n;
+}
+
+function render(){
+  let y = parseInt(yearInput.value, 10);
+  if (!y || y < 1) { y = 2019; yearInput.value = y; }
+  const r = calc(y);
+
+  wdLine.textContent = `መባቻ ${r.newYearWeekday}`;
+  evLine.textContent = `ወንጌላዊ ${r.evangelist}`;
+  cycleNote.textContent = r.meskeremBranch
+    ? `መጥቅዕ ${r.metqi} — ከ14 በላይ · ነነዌ በጥር/በየካቲት ዑደት`
+    : `መጥቅዕ ${r.metqi} — ከ14 በታች · ነነዌ በየካቲት ዑደት`;
+
+  feastList.innerHTML = r.movable.map(e => `
+    <div class="feast-row">
+      <div class="tag ${e.type}">${e.type === 'fast' ? 'ጾም' : 'በዓል'}</div>
+      <div class="name">${e.nameAm}<span class="wk">${e.weekday}</span></div>
+      <div class="date">${e.day}<span class="m">${e.month}</span></div>
+    </div>
+  `).join('');
+
+  fixedList.innerHTML = r.fixed.map(f => `
+    <div class="feast-row">
+      <div class="tag feast">በዓል</div>
+      <div class="name">${f.nameAm}<span class="wk">${f.weekday}</span></div>
+      <div class="date">${f.day}<span class="m">${f.monthName}</span></div>
+    </div>
+  `).join('');
+
+  trail.innerHTML = `
+    <div class="trail-row"><span class="k">ዓመተ ዓለም</span><span class="v">${r.ameteAlem}<span class="expr">${r.ecYear} + 5500</span></span></div>
+    <div class="trail-row"><span class="k">መጠነ ራብዒት</span><span class="v">${r.q4}<span class="expr">⌊${r.ameteAlem} ÷ 4⌋</span></span></div>
+    <div class="trail-row"><span class="k">ወንጌላዊ</span><span class="v">${r.evangelist}<span class="expr">${r.ameteAlem} mod 4 = ${r.evRem}</span></span></div>
+    <div class="trail-row"><span class="k">መባቻ (መስከረም 1)</span><span class="v">${r.newYearWeekday}<span class="expr">(${r.ameteAlem} + ${r.q4}) mod 7 = ${r.wIdx}</span></span></div>
+    <div class="trail-row"><span class="k">መደብ</span><span class="v">${r.medeb}<span class="expr">${r.ameteAlem} mod 19</span></span></div>
+    <div class="trail-row"><span class="k">ወንበር</span><span class="v">${r.wenber}<span class="expr">መደብ − 1</span></span></div>
+    <div class="trail-row"><span class="k">አበቅቴ</span><span class="v">${r.abektie}<span class="expr">(ወንበር × 11) mod 30</span></span></div>
+    <div class="trail-row"><span class="k">መጥቅዕ</span><span class="v">${r.metqi}<span class="expr">(ወንበር × 19) mod 30</span></span></div>
+    <div class="trail-row"><span class="k">የመጥቅዕ ወር</span><span class="v">${r.meskeremBranch ? 'መስከረም (>14)' : 'ጥቅምት (≤14)'}</span></div>
+    <div class="trail-row"><span class="k">የመጥቅዕ ዕለት</span><span class="v">${r.metqiWeekday}<span class="expr">ተውሳክ = ${r.tewsak}</span></span></div>
+    <div class="trail-row"><span class="k">መባጃ ሐመር (ነነዌ)</span><span class="v">${r.ninevehRaw > 30 ? r.ninevehRaw - 30 : r.ninevehRaw}<span class="expr">${r.metqi} + ${r.tewsak} = ${r.ninevehRaw}${r.ninevehRaw > 30 ? ' → −30' : ''}</span></span></div>
+    <div class="trail-row"><span class="k">ጾመ ነነዌ ይገባል</span><span class="v">${MONTHS[r.ninevehMonthIndex]} ${r.ninevehDay}</span></div>
+  `;
+
+  try { localStorage.setItem('bh-year', String(y)); } catch(e) {}
+}
+
+yearInput.addEventListener('input', render);
+document.getElementById('yUp').addEventListener('click', () => { yearInput.value = (parseInt(yearInput.value,10)||2019) + 1; render(); });
+document.getElementById('yDown').addEventListener('click', () => { yearInput.value = (parseInt(yearInput.value,10)||2019) - 1; render(); });
+
+document.getElementById('trailToggle').addEventListener('click', () => {
+  trail.classList.toggle('open');
+});
+
+// default to current EC year if we can infer it, else fall back to 2019
+(function setDefaultYear(){
+  try {
+    const saved = localStorage.getItem('bh-year');
+    if (saved) { yearInput.value = saved; render(); return; }
+  } catch(e) {}
+  const now = new Date();
+  const gYear = now.getFullYear();
+  const gMonth = now.getMonth() + 1; // 1-12
+  const gDay = now.getDate();
+  // Ethiopian New Year is ~Sept 11 (Sept 12 in the Gregorian leap year before an Ethiopian leap)
+  let ec = gYear - 8;
+  if (gMonth > 9 || (gMonth === 9 && gDay >= 11)) ec = gYear - 7;
+  yearInput.value = ec;
+  render();
+})();
+
+// ---------- PWA install prompt ----------
+let deferredPrompt;
+const banner = document.getElementById('installBanner');
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  banner.classList.add('show');
+});
+document.getElementById('installBtn').addEventListener('click', async () => {
+  banner.classList.remove('show');
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  await deferredPrompt.userChoice;
+  deferredPrompt = null;
+});
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('service-worker.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
